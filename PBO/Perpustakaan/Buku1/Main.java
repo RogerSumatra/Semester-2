@@ -6,7 +6,7 @@ public class Main {
     static String judul, penulis;
     static int[] indexKategori;
 
-    static String[] cetakJenisBuku(String[] jenisBuku) {
+    static String[] cetakJenisBuku(String[] jenisBuku) { //untuk interface
         String[] result = new String[jenisBuku.length];
         for (int i = 1; i < jenisBuku.length + 1; i++) {
             result[i - 1] = Integer.toString(i) + ". " + jenisBuku[i - 1];
@@ -14,7 +14,6 @@ public class Main {
         return result;
     }
     public static void main(String[] args) {
-        // String[] jenisBuku = {"Teknologi", "Filsafat", "Sejarah", "Agama", "Psikologi", "Politik", "Fiksi"};
         Scanner input = new Scanner (System.in);
         System.out.println("Kategori yang tersedia: " + Arrays.toString(cetakJenisBuku(Buku.pilihanJenisBuku)));
         System.out.print("Mau berapa jenis buku bro?: ");
@@ -55,12 +54,11 @@ public class Main {
 class Buku {
     String judul;
     String penulis;
-    //String jenisBuku;
     final static String[] pilihanJenisBuku = {"Teknologi", "Filsafat", "Sejarah", "Agama", "Psikologi", "Politik", "Fiksi"};
 
     public Buku(String judul, String penulis) {
         this.judul = judul;
-        this.penulis = penulis;;
+        this.penulis = penulis;
     }
     public static void print(int banyakKategori, int[] indexKategori, Buku[][] kumpulanBuku) {
         for (int i = 0; i < banyakKategori; i++) {
