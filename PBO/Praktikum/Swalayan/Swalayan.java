@@ -198,7 +198,7 @@ public class Swalayan {
             for (int i = 0; i < listAkun.size(); i++) {
                  Akun holderAkun = listAkun.get(i);
                 if (holderAkun.getNoPelanggan().equals(holderNo)) {
-                    if (validate(i, holderAkun.getPIN())) {
+                    if (validatePIN(i, holderAkun.getPIN())) {
                         tampilanAkun(holderAkun);
                         check = false;
                         break;
@@ -216,7 +216,12 @@ public class Swalayan {
         }
     }
 
-    static boolean validate(int index, String PIN) {
+    static boolean validateNoPelanggan(int index, String noPelanggan) {
+        System.out.println("=========================================================");
+        return false;
+    }
+
+    static boolean validatePIN(int index, String PIN) {
         System.out.println("=========================================================");
         System.out.print("Masukkan PIN anda (3 kali kesempatan): ");
         for (int i = 3; i > 0;i--) {
