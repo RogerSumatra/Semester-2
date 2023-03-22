@@ -65,7 +65,7 @@ class Akun {
         System.out.println("Masukkan deposit saldo (minimal Rp 50,000.00)");
         check = true;
         while (check) {
-            float holder = input.nextFloat();
+            float holder = input.nextFloat(); input.nextLine();
             if (holder < 50000) {
                 System.out.println("Tolong deposit saldo dengan benar");
             } else {
@@ -85,37 +85,122 @@ class Akun {
         cekInformasiAkun();
     }
     //==========================================================================================
-    void gantiNama() {
+    boolean gantiNama(int index ,ArrayList<Akun> listAkun) {
         System.out.println("=========================================================");
-        System.out.print("Masukkan nama baru: ");
-        String namaBaru = input.nextLine();
-        this.nama = namaBaru;
-        System.out.println("Nama berhasil diganti");
-    }
-
-    void isiSaldo() {
-        System.out.println("=========================================================");
-        System.out.print("Masukkan nominal saldo: ");
-        float tambahSaldo = input.nextFloat();
-        this.saldo += tambahSaldo;
-        System.out.println("Saldo telah ditambahkan");
-    }
-
-    void tarikSaldo() {
-        System.out.println("=========================================================");
-        System.out.print("Masukkan nominal saldo yang ingin ditarik: ");
-        boolean check = true;
-        while (check) {
-            float tarikSaldo = input.nextFloat();
-            if (getSaldo() < tarikSaldo) {
-                System.out.println("Saldo tidak cukup untuk melakukan penarikan");
+        System.out.print("Masukkan nomor pelanggan: ");
+        boolean check1 = true;
+        while (check1) {
+            String holderNo = input.nextLine();
+            if (this.noPelanggan.equals(holderNo)) {
+                System.out.println("=========================================================");
+                System.out.print("Masukkan PIN anda (3 kali kesempatan): ");
+                for (int i = 3; i > 0; i--) {
+                    String holderPIN = input.nextLine();
+                    if (holderPIN.equals(this.PIN)) {
+                        System.out.print("Masukkan nama baru: ");
+                        String namaBaru = input.nextLine();
+                        this.nama = namaBaru;
+                        System.out.println("Nama berhasil diganti");
+                        return true;
+                    } else if (!holderPIN.equals(this.PIN)) {
+                        System.out.println("PIN salah. " + (i - 1) + " kesempatan lagi");
+                        if ((i - 1) == 0) {
+                            System.out.println("Akun terblokir");
+                            listAkun.remove(index);
+                            //Swalayan.ui();
+                            return false;
+                        }
+                    }
+                }
+                check1 = false;
             } else {
-                this.saldo -= tarikSaldo;
-                System.out.println("Penarikan saldo berhasil");
-                System.out.println("Sisa saldo anda\t: " + df.format(this.saldo));
-                check = false;
+                System.out.println("Nomor pelanggan salah");
             }
         }
+        return false;
+        
+    }
+
+    boolean isiSaldo(int index ,ArrayList<Akun> listAkun) {
+        System.out.println("=========================================================");
+        System.out.print("Masukkan nomor pelanggan: ");
+        boolean check1 = true;
+        while (check1) {
+            String holderNo = input.nextLine();
+            if (this.noPelanggan.equals(holderNo)) {
+                System.out.println("=========================================================");
+                System.out.print("Masukkan PIN anda (3 kali kesempatan): ");
+                for (int i = 3; i > 0; i--) {
+                    String holderPIN = input.nextLine();
+                    if (holderPIN.equals(this.PIN)) {
+                        System.out.println("=========================================================");
+                        System.out.print("Masukkan nominal saldo: ");
+                        float tambahSaldo = input.nextFloat(); input.nextLine();
+                        this.saldo += tambahSaldo;
+                        System.out.println("Saldo telah ditambahkan");
+                        System.out.println("Saldo Akun: " + df.format(this.saldo));
+                        return true;
+                    } else if (!holderPIN.equals(this.PIN)) {
+                        System.out.println("PIN salah. " + (i - 1) + " kesempatan lagi");
+                        if ((i - 1) == 0) {
+                            System.out.println("Akun terblokir");
+                            listAkun.remove(index);
+                            return false;
+                        }
+                    }
+                }
+                check1 = false;
+            } else {
+                System.out.println("Nomor pelanggan salah");
+            }
+        }
+        return false;
+    }
+
+    
+
+    boolean tarikSaldo(int index ,ArrayList<Akun> listAkun) {
+        System.out.println("=========================================================");
+        System.out.print("Masukkan nomor pelanggan: ");
+        boolean check1 = true;
+        while (check1) {
+            String holderNo = input.nextLine();
+            if (this.noPelanggan.equals(holderNo)) {
+                System.out.println("=========================================================");
+                System.out.print("Masukkan PIN anda (3 kali kesempatan): ");
+                for (int i = 3; i > 0; i--) {
+                    String holderPIN = input.nextLine();
+                    if (holderPIN.equals(this.PIN)) {
+                        System.out.println("=========================================================");
+                        System.out.print("Masukkan nominal saldo yang ingin ditarik: ");
+                        boolean check = true;
+                        while (check) {
+                            float tarikSaldo = input.nextFloat(); input.nextLine();
+                            if (this.saldo < tarikSaldo) {
+                                System.out.println("Saldo tidak cukup untuk melakukan penarikan");
+                            } else {
+                                this.saldo -= tarikSaldo;
+                                System.out.println("Penarikan saldo berhasil");
+                                System.out.println("Sisa saldo anda\t: " + df.format(this.saldo));
+                                check = false;
+                            }
+                        }
+                        return true;
+                    } else if (!holderPIN.equals(this.PIN)) {
+                        System.out.println("PIN salah. " + (i - 1) + " kesempatan lagi");
+                        if ((i - 1) == 0) {
+                            System.out.println("Akun terblokir");
+                            listAkun.remove(index);
+                            return false;
+                        }
+                    }
+                }
+                check1 = false;
+            } else {
+                System.out.println("Nomor pelanggan salah");
+            }
+        }
+        return false;
         
     }
     String getNama() {
@@ -173,7 +258,7 @@ public class Swalayan {
 
     static void ui() {
         System.out.println("=========================================================");
-        System.out.println("Selamat datang di Swalayan");
+        System.out.println("Selamat datang di Pasar Swalayan");
         System.out.println("1. Buat Akun\n2. Masuk Akun\n9. Exit");
         System.out.print("Masukkan pilihan anda : ");
         int inputPilihan = input.nextInt(); input.nextLine();
@@ -195,7 +280,7 @@ public class Swalayan {
         }
     }
 
-    static void tampilanAkun(Akun akun) {
+    static void tampilanAkun(int indexAkun, Akun akun) {
         System.out.println("=========================================================");
         System.out.println("Selamat datang " + akun.getNama() + "\n");
         System.out.println("1. Cek Akun\n2. Ganti nama\n3. Isi saldo\n4. Tarik saldo\n5. Pembelian\n9. Exit");
@@ -204,91 +289,38 @@ public class Swalayan {
         switch(inputPilihan) {
             case 1:
                 akun.cekInformasiAkun();
-                tampilanAkun(akun);
+                tampilanAkun(indexAkun, akun);
                 break;
             case 2:
-                akun.gantiNama();
-                tampilanAkun(akun);
+                if (akun.gantiNama(indexAkun, listAkun)) {
+                    tampilanAkun(indexAkun, akun);
+                }
                 break;
             case 3:
-                akun.isiSaldo();
-                tampilanAkun(akun);
+                if (akun.isiSaldo(indexAkun, listAkun)) {
+                    tampilanAkun(indexAkun, akun);
+                }
                 break;
             case 4:
-                akun.tarikSaldo();
-                tampilanAkun(akun);
+                if (akun.tarikSaldo(indexAkun, listAkun)) {
+                    tampilanAkun(indexAkun, akun);
+                }
+                break;
             case 5:
-                pembelian(akun);
-                tampilanAkun(akun);
+                if (pembelian(akun, indexAkun)) {
+                    tampilanAkun(indexAkun, akun);
+                }
                 break;
             case 9:
                 break;
             default:
                 System.out.println("Tolong masukkan input dengan benar");
-                tampilanAkun(akun);
+                tampilanAkun(indexAkun, akun);
                 break;
         }
     }
 
-    static void pembayaran(Akun akun, int index) {
-        Handphone holderHandphone = listHandphones.get(index);
-        if (akun.getSaldo() > holderHandphone.harga) {
-            if ((akun.getSaldo() - holderHandphone.harga) < 10000.0) {
-                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
-            } else {
-                String jenisAkun = akun.getNoPelanggan().substring(0, 2);
-                switch (jenisAkun) {
-                    case "38":
-                        if (holderHandphone.harga > 1000000.0) {
-                            float potongan = (holderHandphone.harga * 5) / 100;
-                            akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
-                            System.out.println("Transaksi berhasil");
-                            System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
-                            System.out.println("Cashback\t: " + df.format(potongan));
-                        }
-                        break;
-                    case "56":
-                        if (holderHandphone.harga > 1000000.0) {
-                            float potongan = (holderHandphone.harga * 7) / 100;
-                            akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
-                            System.out.println("Transaksi berhasil");
-                            System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
-                            System.out.println("Cashback\t: " + df.format(potongan));
-                        } else {
-                            float potongan = (holderHandphone.harga * 2) / 100;
-                            akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
-                            System.out.println("Transaksi berhasil");
-                            System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
-                            System.out.println("Cashback\t: " + df.format(potongan));
-                        }
-                        break;
-                    case "74":
-                        if (holderHandphone.harga > 1000000.0) {
-                            float potongan = (holderHandphone.harga * 10) / 100;
-                            akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
-                            System.out.println("Transaksi berhasil");
-                            System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
-                            System.out.println("Cashback\t: " + df.format(potongan));
-                        } else {
-                            float potongan = (holderHandphone.harga * 5) / 100;
-                            akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
-                            System.out.println("Transaksi berhasil");
-                            System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
-                            System.out.println("Cashback\t: " + df.format(potongan));
-                        }
-                        break;
-                }
-                // akun.setSaldo(akun.getSaldo() - holderHandphone.harga);
-                // System.out.println("Transaksi berhasil");
-                // System.out.println("Sisa saldo: " + akun.getSaldo());
-            }
-               
-        } else {
-            System.out.println("Transaksi gagal. Saldo tidak cukup");
-        }
-    }
-
-    static void pembelian(Akun akun) {
+    static boolean pembelian(Akun akun, int indexAkun) {
         System.out.println("=========================================================\nHandphone yang tersedia: ");
         System.out.println("   Nama\t\t\t     Harga");
         for (int i = 0; i < listHandphones.size(); i++) {
@@ -304,33 +336,130 @@ public class Swalayan {
             if ((inputPilihan > 0 && inputPilihan <= listHandphones.size() + 1) || inputPilihan == 9) {
                 switch(inputPilihan - 1) {
                     case 0:
-                        pembayaran(akun, 0);
-                        break;
+                        if (pembayaran(akun, indexAkun, 0)) {
+                            return true;
+                        }
+                        return false;
                     case 1:
-                        pembayaran(akun, 1);
-                        break;
+                        if (pembayaran(akun, indexAkun, 1)) {
+                            return true;
+                        }
+                        return false;
                     case 2:
-                        pembayaran(akun, 2);
-                        break;
+                        if (pembayaran(akun, indexAkun, 2)) {
+                            return true;
+                        }
+                        return false;
                     case 3:
-                        pembayaran(akun, 3);
-                        break;
+                        if (pembayaran(akun, indexAkun, 3)) {
+                            return true;
+                        }
+                        return false;
                     case 4:
-                        pembayaran(akun, 4);
-                        break;
+                        if (pembayaran(akun, indexAkun, 4)) {
+                            return true;
+                        }
+                        return false;
                     case 9:
-                        //tampilanAkun(akun);
-                        break;
-                    // default:
-                    //     System.out.println("Tolong masukkan input dengan benar");
-                    //     break;
-                        
+                        return true;
+                       
                 }
                 check = false;
             } else {
                 System.out.println("Tolong masukkan input dengan benar.");
             }
         }
+        return false;
+    }
+
+    static boolean pembayaran(Akun akun, int indexAkun, int indexPhone) {
+        Handphone holderHandphone = listHandphones.get(indexPhone);
+        if (akun.getSaldo() > holderHandphone.harga) {
+            if ((akun.getSaldo() - holderHandphone.harga) < 10000.0) {
+                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
+            } else {
+                String jenisAkun = akun.getNoPelanggan().substring(0, 2);
+                switch (jenisAkun) {
+                    case "38":
+                        if (holderHandphone.harga > 1000000.0) {
+                            if (validate(akun ,indexAkun)) {
+                                float potongan = (holderHandphone.harga * 5) / 100;
+                                akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
+                                System.out.println("Cashback\t: " + df.format(potongan));
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            if (validate(akun, indexAkun)) {
+                                akun.setSaldo(akun.getSaldo() - (holderHandphone.harga));
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                    case "56":
+                        if (holderHandphone.harga > 1000000.0) {
+                            if (validate(akun, indexAkun)) {
+                                float potongan = (holderHandphone.harga * 7) / 100;
+                                akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
+                                System.out.println("Cashback\t: " + df.format(potongan));
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            if (validate(akun ,indexAkun)) {
+                                float potongan = (holderHandphone.harga * 2) / 100;
+                                akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
+                                System.out.println("Cashback\t: " + df.format(potongan));
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        }
+                        //break;
+                    case "74":
+                        if (holderHandphone.harga > 1000000.0) {
+                            if (validate(akun, indexAkun)) {
+                                float potongan = (holderHandphone.harga * 10) / 100;
+                                akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
+                                System.out.println("Cashback\t: " + df.format(potongan));
+                                return true;
+                            } else {
+                                return false;
+                            }
+                        } else {
+                            if (validate(akun ,indexAkun)) {
+                                float potongan = (holderHandphone.harga * 5) / 100;
+                                akun.setSaldo(akun.getSaldo() - (holderHandphone.harga - potongan));
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo\t: " + df.format(akun.getSaldo()));
+                                System.out.println("Cashback\t: " + df.format(potongan));;
+                                return true;
+                            } else {
+                                return false;
+                            }
+                            
+                        }
+                }
+            }
+               
+        } else {
+            System.out.println("Transaksi gagal. Saldo tidak cukup");
+            pembelian(akun, indexAkun);
+        }
+        return false;
     }
 
     static void buatAkun() {
@@ -348,8 +477,8 @@ public class Swalayan {
             for (int i = 0; i < listAkun.size(); i++) {
                  Akun holderAkun = listAkun.get(i);
                 if (holderAkun.getNoPelanggan().equals(holderNo)) {
-                    if (validatePIN(i, holderAkun.getPIN())) {
-                        tampilanAkun(holderAkun);
+                    if (validatePIN(i, holderAkun)) {
+                        tampilanAkun(i ,holderAkun);
                         check = false;
                         break;
                     } else {
@@ -365,25 +494,48 @@ public class Swalayan {
             }
         }
     }
-
-
-    // static boolean validateNoPelanggan(int index, String noPelanggan) {
-    //     System.out.println("=========================================================");
-    //     return false;
-    // }
-
-    static boolean validatePIN(int index, String PIN) {
+    static boolean validate(Akun akun ,int index) {
         System.out.println("=========================================================");
+        System.out.print("Masukkan nomor pelanggan: ");
+        boolean check = true;
+        while (check) {
+            String holderNo = input.nextLine();
+            if (holderNo.equals(akun.getNoPelanggan())) {
+                check = false;
+            } else {
+                System.out.println("Nomor pelanggan salah");
+            }
+        }
         System.out.print("Masukkan PIN anda (3 kali kesempatan): ");
         for (int i = 3; i > 0;i--) {
-            String holderPass = input.nextLine();
-            if (holderPass.equals(PIN)) {
+            String holderPIN = input.nextLine();
+            if (holderPIN.equals(akun.getPIN())) {
                 return true;
-            } else if (!holderPass.equals(PIN)) {
+            } else if (!holderPIN.equals(akun.getPIN())) {
                 System.out.println("PIN salah. " + (i - 1) + " kesempatan lagi");
                 if ((i - 1) == 0) {
                     System.out.println("Akun terblokir");
                     listAkun.remove(index);
+                    return false;
+                }
+                
+            }
+        }
+        return false;
+    }
+
+    static boolean validatePIN(int indexAkun, Akun akun) {
+        System.out.println("=========================================================");
+        System.out.print("Masukkan PIN anda (3 kali kesempatan): ");
+        for (int i = 3; i > 0;i--) {
+            String holderPass = input.nextLine();
+            if (holderPass.equals(akun.getPIN())) {
+                return true;
+            } else if (!holderPass.equals(akun.getPIN())) {
+                System.out.println("PIN salah. " + (i - 1) + " kesempatan lagi");
+                if ((i - 1) == 0) {
+                    System.out.println("Akun terblokir");
+                    listAkun.remove(indexAkun);
                     break;
                 }
                 
@@ -393,15 +545,14 @@ public class Swalayan {
     }
     public static void main (String[] args){
         listAkun.add(new Akun("Javed", "3809809630", "123456", 5000000));
-        listAkun.add(new Akun("Ujang", "5655509630", "123456", 250000));
-        listAkun.add(new Akun("Supardi", "7442396390", "123456", 2000000));
+        listAkun.add(new Akun("Ujang", "5655509630", "135791", 1000000));
+        listAkun.add(new Akun("Supardi", "7442396390", "246824", 2000000));
 
         listHandphones.add(new Handphone("Samsul Universe", 1500000)); //1.500.000
         listHandphones.add(new Handphone("Blueberry Bold 9900", 2500000)); //2.500.000
         listHandphones.add(new Handphone("Konia 8210 ", 500000)); //500.000
         listHandphones.add(new Handphone("Siomay MI 8 Big ", 5000000)); //5.000.000
         listHandphones.add(new Handphone("Ipul Newbie Min", 12000000)); //12.000.000
-
 
         ui();
     }
