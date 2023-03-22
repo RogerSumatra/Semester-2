@@ -1,5 +1,6 @@
 import java.util.*;
 import java.lang.*;
+import java.text.DecimalFormat;
 
 class Akun {
     Scanner input = new Scanner (System.in); //Pusing koding
@@ -8,6 +9,7 @@ class Akun {
     private float saldo;
     private String noPelanggan; //2 pertama jenis, 8 bebas
     private String PIN;
+    DecimalFormat df = new DecimalFormat("Rp ###,###.00");
 
     public String konfirm;
 
@@ -99,7 +101,7 @@ class Akun {
             } else {
                 this.saldo -= tarikSaldo;
                 System.out.println("Penarikan saldo berhasil");
-                System.out.println("Sisa saldo anda\t: " + this.saldo);
+                System.out.println("Sisa saldo anda\t: " + df.format(this.saldo));
                 check = false;
             }
         }
@@ -113,6 +115,9 @@ class Akun {
     }
     float getSaldo() {
         return this.saldo;
+    }
+    float setSaldo(float saldo) {
+        return this.saldo = saldo;
     }
     String getPIN() {
         return this.PIN;
@@ -133,7 +138,7 @@ class Akun {
                 System.out.println("Jenis Akun\t: Platinum");
                 break;
         }
-        System.out.println("Saldo\t\t: " + getSaldo());
+        System.out.println("Saldo\t\t: " + df.format(getSaldo()));
     }    
 }
 //=====================================================================================================
@@ -141,12 +146,19 @@ class Akun {
 class Handphone {
     String merk;
     float harga;
+
+    public Handphone(String merk, float harga) {
+        this.merk = merk;
+        this.harga = harga;
+    }
 }
 //=====================================================================================================
 //=====================================================================================================
 public class Swalayan {
     static Scanner input = new Scanner(System.in);
     static ArrayList <Akun> listAkun = new ArrayList<Akun>();
+    static ArrayList <Handphone> listHandphones = new ArrayList<Handphone>();
+    DecimalFormat df = new DecimalFormat("Rp. ###.###.00");
 
     static void ui() {
         System.out.println("=========================================================");
@@ -175,7 +187,7 @@ public class Swalayan {
     static void tampilanAkun(Akun akun) {
         System.out.println("=========================================================");
         System.out.println("Selamat datang " + akun.getNama() + "\n");
-        System.out.println("1. Cek Akun\n2. Ganti nama\n3. Isi saldo\n4. Tarik saldo\n9. Exit");
+        System.out.println("1. Cek Akun\n2. Ganti nama\n3. Isi saldo\n4. Tarik saldo\n5. Pembelian\n9. Exit");
         System.out.print("Masukkan pilihan anda : ");
         int inputPilihan = input.nextInt(); input.nextLine();
         switch(inputPilihan) {
@@ -194,9 +206,121 @@ public class Swalayan {
             case 4:
                 akun.tarikSaldo();
                 tampilanAkun(akun);
+            case 5:
+                pembelian(akun);
+                tampilanAkun(akun);
+                break;
             case 9:
                 break;
+            default:
+                System.out.println("Tolong masukkan input dengan benar");
+                tampilanAkun(akun);
+                break;
+        }
+    }
 
+    static void pembelian(Akun akun) {
+        System.out.println("=========================================================\nHandpohne yang tersedia: ");
+        System.out.println("   Nama\t\t\t     Harga");
+        for (int i = 0; i < listHandphones.size(); i++) {
+            Handphone holderHandphone = listHandphones.get(i);
+            System.out.printf("%d. %-25s %f\n",i + 1 ,holderHandphone.merk, holderHandphone.harga);
+        }
+        System.out.println("9. Exit");
+        System.out.print("\nMasukkan pilihan anda : ");
+        boolean check = true;
+        int inputPilihan;
+        while (check) {
+            inputPilihan = input.nextInt(); input.nextLine();
+            if ((inputPilihan > 0 && inputPilihan <= listHandphones.size() + 1) || inputPilihan == 9) {
+                switch(inputPilihan - 1) {
+                    case 0:
+                        Handphone holderHandphone1 = listHandphones.get(0);
+                        if (akun.getSaldo() > holderHandphone1.harga) {
+                            if ((akun.getSaldo() - holderHandphone1.harga) < 10000.0) {
+                                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
+                            } else {
+                                akun.setSaldo(akun.getSaldo() - holderHandphone1.harga);
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo: " + akun.getSaldo());
+                            }
+                            
+                        } else {
+                            System.out.println("Transaksi gagal. Saldo tidak cukup");
+                        }
+                        break;
+                    case 1:
+                        Handphone holderHandphone2 = listHandphones.get(1);
+                        if (akun.getSaldo() > holderHandphone2.harga) {
+                            if ((akun.getSaldo() - holderHandphone2.harga) < 10000.0) {
+                                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
+                            } else {
+                                akun.setSaldo(akun.getSaldo() - holderHandphone2.harga);
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo: " + akun.getSaldo());
+                            }
+                            
+                        } else {
+                            System.out.println("Transaksi gagal. Saldo tidak cukup");
+                        }
+                        break;
+                    case 2:
+                        Handphone holderHandphone3 = listHandphones.get(2);
+                        if (akun.getSaldo() > holderHandphone3.harga) {
+                            if ((akun.getSaldo() - holderHandphone3.harga) < 10000.0) {
+                                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
+                            } else {
+                                akun.setSaldo(akun.getSaldo() - holderHandphone3.harga);
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo: " + akun.getSaldo());
+                            }
+                            
+                        } else {
+                            System.out.println("Transaksi gagal. Saldo tidak cukup");
+                        }
+                        break;
+                    case 3:
+                        Handphone holderHandphone4 = listHandphones.get(3);
+                        if (akun.getSaldo() > holderHandphone4.harga) {
+                            if ((akun.getSaldo() - holderHandphone4.harga) < 10000.0) {
+                                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
+                            } else {
+                                akun.setSaldo(akun.getSaldo() - holderHandphone4.harga);
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo: " + akun.getSaldo());
+                            }
+                            
+                        } else {
+                            System.out.println("Transaksi gagal. Saldo tidak cukup");
+                        }
+                        break;
+                    case 4:
+                        Handphone holderHandphone5 = listHandphones.get(4);
+                        if (akun.getSaldo() > holderHandphone5.harga) {
+                            if ((akun.getSaldo() - holderHandphone5.harga) < 10000.0) {
+                                System.out.println("Transaksi gagal, saldo pasca transaksi minimal Rp. 10.000");
+                            } else {
+                                akun.setSaldo(akun.getSaldo() - holderHandphone5.harga);
+                                System.out.println("Transaksi berhasil");
+                                System.out.println("Sisa saldo: " + akun.getSaldo());
+                            }
+                            
+                        } else {
+                            System.out.println("Transaksi gagal. Saldo tidak cukup");
+                        }
+                        break;
+                    case 9:
+                        tampilanAkun(akun);
+                        break;
+                    default:
+                        System.out.println("Tolong masukkan input dengan benar");
+                        break;
+                        
+                }
+                check = false;
+            } else {
+                System.out.println("Tolong masukkan input dengan benar.");
+            }
         }
     }
 
@@ -233,10 +357,11 @@ public class Swalayan {
         }
     }
 
-    static boolean validateNoPelanggan(int index, String noPelanggan) {
-        System.out.println("=========================================================");
-        return false;
-    }
+
+    // static boolean validateNoPelanggan(int index, String noPelanggan) {
+    //     System.out.println("=========================================================");
+    //     return false;
+    // }
 
     static boolean validatePIN(int index, String PIN) {
         System.out.println("=========================================================");
@@ -262,6 +387,16 @@ public class Swalayan {
         listAkun.add(new Akun("Javed", "3809809630", "123456"));
         listAkun.add(new Akun("Ujang", "5655509630", "123456"));
         listAkun.add(new Akun("Supardi", "7442396390", "123456"));
+
+        Akun tesHarga = listAkun.get(0);
+        tesHarga.setSaldo(5000000);
+
+        listHandphones.add(new Handphone("Samsul Universe", 1500000)); //1.500.000
+        listHandphones.add(new Handphone("Blueberry Bold 9900", 2500000)); //2.500.000
+        listHandphones.add(new Handphone("Konia 8210 ", 500000)); //500.000
+        listHandphones.add(new Handphone("Siomay MI 8 Big ", 5000000)); //5.000.000
+        listHandphones.add(new Handphone("Ipul Newbie Min", 12000000)); //12.000.000
+
 
         ui();
     }
