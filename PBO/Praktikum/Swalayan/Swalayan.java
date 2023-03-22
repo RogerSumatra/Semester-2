@@ -88,8 +88,22 @@ class Akun {
         System.out.println("Saldo telah ditambahkan");
     }
 
-    void tarikSaldo(float saldo) {
-        //auth
+    void tarikSaldo() {
+        System.out.println("=========================================================");
+        System.out.print("Masukkan nominal saldo yang ingin ditarik: ");
+        boolean check = true;
+        while (check) {
+            float tarikSaldo = input.nextFloat();
+            if (getSaldo() < tarikSaldo) {
+                System.out.println("Saldo tidak cukup untuk melakukan penarikan");
+            } else {
+                this.saldo -= tarikSaldo;
+                System.out.println("Penarikan saldo berhasil");
+                System.out.println("Sisa saldo anda\t: " + this.saldo);
+                check = false;
+            }
+        }
+        
     }
     String getNama() {
         return this.nama;
@@ -177,6 +191,9 @@ public class Swalayan {
                 akun.isiSaldo();
                 tampilanAkun(akun);
                 break;
+            case 4:
+                akun.tarikSaldo();
+                tampilanAkun(akun);
             case 9:
                 break;
 
