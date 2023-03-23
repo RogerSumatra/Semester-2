@@ -1,5 +1,4 @@
 import java.util.*;
-import java.lang.*;
 import java.text.DecimalFormat;
 
 class Akun {
@@ -76,15 +75,7 @@ class Akun {
         System.out.println("\nAkun Berhasil dibuat");
         cekInformasiAkun();
     }
-    //==========================INI UNTUK TESTCASE BROOOOOOOO======================================
-    public Akun(String nama, String noPelanggan, String PIN, float saldo) {
-        this.nama = nama;
-        this.noPelanggan = noPelanggan;
-        this.PIN = PIN;
-        this.saldo = saldo;
-        cekInformasiAkun();
-    }
-    //==========================================================================================
+
     boolean gantiNama(int index ,ArrayList<Akun> listAkun) {
         System.out.println("=========================================================");
         System.out.print("Masukkan nomor pelanggan: ");
@@ -107,7 +98,6 @@ class Akun {
                         if ((i - 1) == 0) {
                             System.out.println("Akun terblokir");
                             listAkun.remove(index);
-                            //Swalayan.ui();
                             return false;
                         }
                     }
@@ -156,8 +146,6 @@ class Akun {
         }
         return false;
     }
-
-    
 
     boolean tarikSaldo(int index ,ArrayList<Akun> listAkun) {
         System.out.println("=========================================================");
@@ -237,8 +225,7 @@ class Akun {
         System.out.println("Saldo\t\t: " + df.format(getSaldo()));
     }    
 }
-//=====================================================================================================
-//=====================================================================================================
+
 class Handphone {
     String merk;
     float harga;
@@ -248,8 +235,7 @@ class Handphone {
         this.harga = harga;
     }
 }
-//=====================================================================================================
-//=====================================================================================================
+
 public class Swalayan {
     static Scanner input = new Scanner(System.in);
     static ArrayList <Akun> listAkun = new ArrayList<Akun>();
@@ -459,7 +445,7 @@ public class Swalayan {
             System.out.println("Transaksi gagal. Saldo tidak cukup");
             pembelian(akun, indexAkun);
         }
-        return false;
+        return true;
     }
 
     static void buatAkun() {
@@ -474,6 +460,9 @@ public class Swalayan {
         boolean check = true;
         while (check) {
             String holderNo = input.nextLine();
+            if (listAkun.size() == 0) {
+                System.out.println("Nomor pelanggan tidak ditemukan");
+            }
             for (int i = 0; i < listAkun.size(); i++) {
                  Akun holderAkun = listAkun.get(i);
                 if (holderAkun.getNoPelanggan().equals(holderNo)) {
@@ -544,15 +533,11 @@ public class Swalayan {
         return false;
     }
     public static void main (String[] args){
-        listAkun.add(new Akun("Javed", "3809809630", "123456", 5000000));
-        listAkun.add(new Akun("Ujang", "5655509630", "135791", 1000000));
-        listAkun.add(new Akun("Supardi", "7442396390", "246824", 2000000));
-
-        listHandphones.add(new Handphone("Samsul Universe", 1500000)); //1.500.000
-        listHandphones.add(new Handphone("Blueberry Bold 9900", 2500000)); //2.500.000
-        listHandphones.add(new Handphone("Konia 8210 ", 500000)); //500.000
-        listHandphones.add(new Handphone("Siomay MI 8 Big ", 5000000)); //5.000.000
-        listHandphones.add(new Handphone("Ipul Newbie Min", 12000000)); //12.000.000
+        listHandphones.add(new Handphone("Samsul Universe", 1500000));
+        listHandphones.add(new Handphone("Blueberry Bold 9900", 2500000)); 
+        listHandphones.add(new Handphone("Konia 8210 ", 500000)); 
+        listHandphones.add(new Handphone("Siomay MI 8 Big ", 5000000)); 
+        listHandphones.add(new Handphone("Ipul Newbie Min", 12000000)); 
 
         ui();
     }
