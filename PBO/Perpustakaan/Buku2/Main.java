@@ -22,19 +22,19 @@ public class Main {
         System.out.print("Mau berapa jenis buku bro?: ");
         banyakKategori = input.nextInt(); input.nextLine();
         Buku[][] kumpulanBuku = new Buku[banyakKategori][]; //nampung objek buku [kategori][banyak jenis buku]
-        persen = new int[banyakKategori][];
-        indexKategori = new int[banyakKategori];
+        persen = new int[banyakKategori][]; //nampung input persen
+        indexKategori = new int[banyakKategori]; //nampung pilihan kategori
         for (i = 0; i < banyakKategori; i++) {
-            boolean check = true;
+            boolean check1 = true;
             System.out.println("pilihan Kategori: " + Arrays.toString(cetakJenisBuku(Buku.pilihanJenisBuku)));
             System.out.print("Jenis ke " + (i + 1) + " apa bro? (masukkan nomor kategori): ");
-            while (check) {
+            while (check1) { //ulang bila input tidak ada di index kategori
                 indexKategori[i] = input.nextInt(); input.nextLine();
                 if (indexKategori[i] > 0 && indexKategori[i] < 8) {
-                    check = false;
+                    check1 = false;
                 } else {
                     System.out.print("Tolong masukkan sesuai nomor pilihan: ");
-                    check = true;
+                    check1 = true;
                 }
             }
             System.out.print("Buku " + Buku.pilihanJenisBuku[indexKategori[i] - 1] + " ada berapa bro?: ");
@@ -48,15 +48,15 @@ public class Main {
                 penulis = input.nextLine();
                 //tambah sinopsis
                 System.out.println("Buku " + (j + 1) + " sinopsisnya apa bro? (minimal 20 kata): ");
-                boolean test = true;
-                while (test) {
+                boolean check2 = true;
+                while (check2) { //ulang bila kata kurang dari 20
                     tampungSinopsis = input.nextLine().toLowerCase();
                     jumlahKata = Buku.jumlahKata(tampungSinopsis);
                     if (jumlahKata > 20) {
-                        test = false;
+                        check2 = false;
                     } else {
                         System.out.println("Masukkan minimal 20 kata lah bro");
-                        test = true;
+                        check2 = true;
                     }
                 }
                 sinopsis = Buku.fixSinopsis(tampungSinopsis);
