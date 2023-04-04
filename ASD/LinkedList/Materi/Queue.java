@@ -1,3 +1,5 @@
+package Materi;
+
 public class Queue {
     int front;
     int rear;

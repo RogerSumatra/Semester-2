@@ -1,3 +1,5 @@
+package Materi;
+
 public class Stack {
     int top;
     int[] tumpukan;

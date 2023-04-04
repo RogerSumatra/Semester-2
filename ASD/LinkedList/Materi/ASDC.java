@@ -1,3 +1,5 @@
+package Materi;
+
 public class ASDC {
     public static void main(String[] args) {
         //LinkedList barisan = new LinkedList();

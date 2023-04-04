@@ -1,3 +1,5 @@
+package Materi;
+
 public class DoubleLL {
     NodeDouble kepala;
     NodeDouble ekor;

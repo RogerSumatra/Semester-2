@@ -1,3 +1,5 @@
+package Praktikum;
+
 public class llll {
     public static void main(String[] args) {
         String name = "fas";

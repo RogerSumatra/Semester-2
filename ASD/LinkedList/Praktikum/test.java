@@ -1,3 +1,5 @@
+package Praktikum;
+
 import java.util.*;
 
 class Mobil {

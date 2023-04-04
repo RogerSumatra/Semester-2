@@ -1,3 +1,5 @@
+package Materi;
+
 public class LinkedList {
     Node kepala;
     Node ekor;
