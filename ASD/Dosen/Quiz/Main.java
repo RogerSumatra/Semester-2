@@ -17,7 +17,7 @@ public class Main {
             {0, 0, 0, 0, 0, 0, 1, 0},
         };
         int start = 2;
-        int end = 7;
+        int end = 5;
         CariJalan test = new CariJalan();
         test.run(soal, start, end);
 
