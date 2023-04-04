@@ -10,8 +10,8 @@ public class Main {
             {0, 1, 0, 0, 0, 0, 0, 1},
             {0, 0, 0, 0, 0, 0, 1, 0},
         };
-        int start = 6;
-        int end = 4;
+        int start = 2;
+        int end = 7;
         CariJalan test = new CariJalan();
         test.run(soal, start, end);
 
@@ -48,4 +48,6 @@ public class Main {
 
     }
 }
+
+
 

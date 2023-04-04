@@ -119,7 +119,6 @@
                 }
             }
         }
-        // System.out.println("INI DIA BANGFFS");
         // System.out.println(Arrays.toString(valueOfStack));
     }
 }

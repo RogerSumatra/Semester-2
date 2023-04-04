@@ -37,12 +37,23 @@ public class Stack {
         return top.data;
     }
 
-    public void printStack() {
+    public void printStack() { //cetak data dari kiri ke kanan
         Node temp = top;
+        int[] holder = new int[size];
+        int index = size - 1;
         while (temp != null) {
-            System.out.print(temp.data + " - ");
+            holder[index] = temp.data;
             temp = temp.pointer;
+            index--;
         }
-        System.out.println();
+        for (int i = 0; i < holder.length; i++) {
+            if (i == 0) {
+                System.out.print(holder[i]);
+            } else {
+                System.out.print(" --> " + holder[i]);
+            }
+           
+        }
+        System.out.println("");
     }
 }
