@@ -1,3 +1,9 @@
+/*
+ * Nama     : Daffarel Adyatma Winuradmaja
+ * NIM      : 225150201111016
+ * Kelas    : TIF - C
+ */
+
 public class Stack {
     Node top;
     int size;

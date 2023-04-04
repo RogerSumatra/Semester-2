@@ -1,26 +1,10 @@
-/* 
- * so this is the plan:
- * 
- * alur absurd:
- * buat queue dulu setiap angka
- * tambah start ke stack
- * cek queue dari start
- * dequeue dan masukkan value dequeue ke stack
- * cek queue dari value dequeue tadi
- * ulangi sampai tidak ada queue
- * jika queue suatu angka habis && stack.peek tidak sama dengan end, pop stack
- * 
- * cek apakah end == stack.top 
- * cek apakah ada queue dari angka tersebut
- * jika queue habis dan end != stack.top {
- * iya = pop stack
- * tidak = push ke stack dan dequeue}
- * 
- * 
- * note:
+/*
+ * Nama     : Daffarel Adyatma Winuradmaja
+ * NIM      : 225150201111016
+ * Kelas    : TIF - C
  */
 
- public class CariJalan {
+public class CariJalan {
     int start;
     int end;
     Queue[] queue; //queue untuk tiap nomor
@@ -40,12 +24,12 @@
             }
         }
 
-        for (int i = 0; i < queue.length; i++) {
-            System.out.println(i + " size " + queue[i].size + ": ");
-            queue[i].display();
-            System.out.println("");
-        }
-        System.out.println("==================");
+        // for (int i = 0; i < queue.length; i++) {
+        //     System.out.println(i + " size " + queue[i].size + ": ");
+        //     queue[i].display();
+        //     System.out.println("");
+        // }
+        // System.out.println("==================");
 
         //tambah start ke stack
         stack.push(start);
@@ -54,9 +38,9 @@
             if (queue[i].checkFront() == 0 && queue[i].size == 0) {
                 queue[i].front = null;
             } else if (queue[i].checkFront() == start) {
-                System.out.printf("i = %d, checkFront = %d, update = %d\n", i, queue[i].checkFront(), start);
+                //System.out.printf("i = %d, checkFront = %d, update = %d\n", i, queue[i].checkFront(), start);
                 queue[i].dequeue();
-                System.out.printf("i = %d, checkFront = %d, update = %d\n\n", i, queue[i].checkFront(), start);
+                //System.out.printf("i = %d, checkFront = %d, update = %d\n\n", i, queue[i].checkFront(), start);
             }
         }
         find(start);
@@ -66,31 +50,21 @@
     public void find(int index) {
         if (stack.peek() != end) {
             if (!(queue[index].isEmpty())) { //kalo ada queue
-                System.out.printf("Front dari %d adalah %d\n", index, queue[index].checkFront());
+                //System.out.printf("Front dari %d adalah %d\n", index, queue[index].checkFront());
                 int update = queue[index].dequeue();
-                System.out.println("Update adalah = " + update);
-                //System.out.println(update);
+                //System.out.println("Update adalah = " + update);
                 checkQueue(queue, stack, update);
-                // for (int i = 0; i < queue.length; i++) { //dequeue kalo queue selain index ada yang sama
-                //     if (queue[i].checkFront() == 0 && queue[i].size == 0) {
-                //         queue[i].front = null;
-                //     } else if (queue[i].checkFront() == update) {
-                //         System.out.printf("i = %d, checkFront = %d, update = %d\n", i, queue[i].checkFront(), update);
-                //         queue[i].dequeue();
-                //         System.out.printf("i = %d, checkFront = %d, update = %d\n\n", i, queue[i].checkFront(), update);
-                //     }
-                // }
                 stack.push(update);
-                System.out.println("update telah ditambah = " + update); System.out.println("");
-                System.out.println("Stack = "); stack.printStack();
+                //System.out.println("update telah ditambah = " + update); System.out.println("");
+                //System.out.println("Stack = "); stack.printStack();
                 find(update);
                 
                 
             } else {
-                System.out.println("jalan buntu\n");
+                //System.out.println("jalan buntu\n");
                 int temp = stack.pop();
-                System.out.println("dibuang " + temp);
-                System.out.println("");
+                //System.out.println("dibuang " + temp);
+                //System.out.println("");
                 find(stack.peek());
             }
         } else if (stack.peek() == end) {
@@ -113,9 +87,9 @@
                 if (queue[i].checkFront() == 0 && queue[i].size == 0) {
                     queue[i].front = null;
                 } else if (queue[i].checkFront() == valueOfStack[j]) {
-                    System.out.printf("i = %d, checkFront = %d, update = %d\n", i, queue[i].checkFront(), valueOfStack[j]);
+                    //System.out.printf("i = %d, checkFront = %d, update = %d\n", i, queue[i].checkFront(), valueOfStack[j]);
                     queue[i].dequeue();
-                    System.out.printf("i = %d, checkFront = %d, update = %d\n\n", i, queue[i].checkFront(), valueOfStack[j]);
+                    //System.out.printf("i = %d, checkFront = %d, update = %d\n\n", i, queue[i].checkFront(), valueOfStack[j]);
                 }
             }
         }
